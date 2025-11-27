@@ -196,38 +196,18 @@
       var dayContainer = document.getElementById('day-buttons-container');
       dayContainer.classList.remove('invisible');
 
-      // Get total number of days
-      var nDays = seasonApiResult.length;
-      var nCols = nDays;
-
-      var dayButtonsDivRow, rowButtonUlList, buttonPlaceholderElement, buttonLiElement;
-      var iRow, iCol;
-      var iDay = 0;
-
-      dayButtonsDivRow = document.createElement('div');
+      var dayButtonsDivRow = document.createElement('div');
       dayButtonsDivRow.classList.add('row');
       dayButtonsDivRow.classList.add('justify-content-md-center');
 
-      for (iCol = 0; iCol < nCols; iCol++) {
-        if( iCol==0) {
+      var rowButtonUlList = document.createElement('ul');
+      rowButtonUlList.classList.add('pagination');
+      rowButtonUlList.classList.add('pagination-sm');
 
-          // Add a no-button placeholder at day 0 position
-          buttonPlaceholderElement = document.createElement('div');
-          buttonPlaceholderElement.classList.add('season-number-button');
-          dayButtonsDivRow.appendChild(buttonPlaceholderElement);
-
-          // Initialize the ul list
-          rowButtonUlList = document.createElement('ul');
-          rowButtonUlList.classList.add('pagination');
-          rowButtonUlList.classList.add('pagination-sm');
-          rowButtonUlList.classList.add('justify-content-md-center');
-
-        }
-
+      for (var iDay = 0; iDay < seasonApiResult.length; iDay++) {
         // Create a button for this day
         var day = iDay + 1;
-
-        buttonLiElement = document.createElement('li');
+        var buttonLiElement = document.createElement('li');
         buttonLiElement.classList.add('page-item');
         buttonLiElement.classList.add('text-center');
         buttonLiElement.classList.add('season-number-button');
@@ -239,20 +219,10 @@
 
         buttonLiElement.appendChild(a);
         rowButtonUlList.appendChild(buttonLiElement);
-
-        if (iCol == nDays-1) {
-
-          // end ul here because it's either maximum number of days, or end of row
-          dayButtonsDivRow.appendChild(rowButtonUlList);
-
-          // End the ul
-          dayButtonsDivRow.appendChild(rowButtonUlList);
-
-        }
-        iDay++;
-
-        dayContainer.appendChild(dayButtonsDivRow);
       }
+
+      dayButtonsDivRow.appendChild(rowButtonUlList);
+      dayContainer.appendChild(dayButtonsDivRow);
     },
 
     /**
